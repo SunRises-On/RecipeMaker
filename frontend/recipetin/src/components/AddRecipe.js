@@ -18,11 +18,11 @@ const AddRecipe = props =>{
         });
     };
     const [value,setValue] = useState({
-        name: "",
+        name: ' ',
         ingredients: [
             {
                 id:0,
-                name:"Orange",
+                name:'Orange',
                 edit:false
             
             },{
@@ -42,7 +42,7 @@ const AddRecipe = props =>{
                 edit:true
             }
         ] 
-    })
+    });
     
     return(
         <div>

@@ -26,9 +26,8 @@ const Directions = ({value, setValue})=>{
 
     function updateEdit(index){
 
-       // const newList = deepCopyFunction(value) // call recursive deeep copy function
-
-        const newDirectionArray = [...value.directions]; // direction array 
+        const newList = deepCopyFunction(value)
+        const newDirectionArray = [...newList.directions]; // direction array 
 
         const newDirection = newDirectionArray.find( // find needed index 
             d => d.id === index // deep copy newDirection with old Direction 
@@ -39,15 +38,13 @@ const Directions = ({value, setValue})=>{
         //it only copies things one level deep.
         // This makes it fast, but it also means that 
         //if you want to update a nested property, you’ll have to use it more than once.
-        setValue(newDirection);
         
-
+        setValue({...newList}) //Now point value to our new created object
         
-        console.log(value);
     }
     return(
         <ol type="1">
-            {value.directions.map(item =>
+            {value.directions?.map(item =>
                 <li key={item.id}>
                     {item.edit?(
                         <div>
@@ -57,7 +54,9 @@ const Directions = ({value, setValue})=>{
                             />
                             <Button
                                 onClick={
-                                    (item)=> !item.edit
+                                    ()=>{
+                                        updateEdit(item.id)
+                                    }
                                 }
                             >Save</Button>
                         </div>
