@@ -25,7 +25,9 @@ const deepCopyFunction = (inObject) => {
 const Directions = ({value, setValue})=>{
 
     function updateEdit(index){
-
+        console.log("in updateEdit()")
+        console.log(value)
+        
         const newList = deepCopyFunction(value)
         const newDirectionArray = [...newList.directions]; // direction array 
 
@@ -42,6 +44,21 @@ const Directions = ({value, setValue})=>{
         setValue({...newList}) //Now point value to our new created object
         
     }
+
+    function handleDirectionChange(event, index){
+
+        const newList = deepCopyFunction(value);
+        const newDirectionArray = [...newList.directions];
+
+        const newDirection = newDirectionArray.find(
+            d => d.id === index
+        )
+        newDirection.name = event.target.value;
+
+        setValue({...newList})
+
+    }
+
     return(
         <ol type="1">
             {value.directions?.map(item =>
@@ -50,7 +67,11 @@ const Directions = ({value, setValue})=>{
                         <div>
                             <input type="text"
                                 value={item.name}
-                                style={{border:'none'}}
+                                // style={{border:'none'}}
+                                onChange={
+                                    (e)=>
+                                    handleDirectionChange(e, item.id)
+                                }
                             />
                             <Button
                                 onClick={
