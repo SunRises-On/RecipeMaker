@@ -3,8 +3,15 @@ import { InputGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Ingredients from './Ingredients';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Directions from './Directions';
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const deepCopyFunction = (inObject) => {
     let outObject, value, key
@@ -142,14 +149,45 @@ const AddRecipe = props =>{
         console.log("direction temp")
         console.log(directionTemp)
     }
-    
+
+
     return(
         <div>
             
             <br/>
-            <Card
-                 className="mx-auto my-auto p5" 
-                 style={{width: '75%',}}>
+            <Container>
+                <Row
+                className="justify-content-md-center"
+                >
+                    <Col 
+                    xs={12} lg={8}
+                    >
+                        <Card 
+                        className="mx-auto my-auto p5"
+                        >
+                            <Card.Body>
+                                <Card.Title>Enter New Recipe Name</Card.Title>
+                            </Card.Body>
+                            <input
+                            value={value.name}
+                            type='text'
+                            name='name'
+                            onChange={nameHandler}
+                        />
+                        <br/>
+                        </Card >
+                    </Col>
+                    <Col
+                    xs={12} lg={6}
+                    >
+                        ff
+                    </Col>
+                    <Col></Col>
+                </Row>
+            </Container>
+            <Card 
+                className="mx-auto my-auto p5"
+                 style={{width: '18rem'}}>
                 <Card.Body>
                     <Card.Title>Enter New Recipe Name</Card.Title>
                 </Card.Body>
@@ -164,7 +202,7 @@ const AddRecipe = props =>{
                 <br/>
             <Card
                 className="mx-auto my-auto p5"
-                style={{width: '75%',}}>
+                style={{width: '50%',}}>
                 <Card.Body>
                     <Card.Title>Ingredients : </Card.Title>
                 </Card.Body>
@@ -189,24 +227,31 @@ const AddRecipe = props =>{
                 <br/>
             <Card 
                 className="mx-auto my-auto p5"
-                style={{width: '75%',}}>
+                style={{width: '50%',}}>
                 <Card.Body>
                     <Card.Title>Directions : </Card.Title>
                 </Card.Body>
                 <Directions value={value} setValue={setValue} />
-                <div>
+                <div className='m-5'
+                >
                     <form onSubmit={handleDirectionSubmit}>
-                        <input
-                        value={directionTemp}
-                        type='text'
-                        name='directionTemp'
-                        onChange={event => {
-                            setDirectionTemp(event.target.value)
-                        }}
-                        />
-                        <Button
-                        type="submit"
-                        >Save</Button>
+                        <InputGroup
+                        >
+                            <Form.Control
+                            type='text'
+                            name='directionTemp'
+                            value={directionTemp}
+                            onChange={
+                                e=> setDirectionTemp(e.target.value)
+                            }
+                            />
+                            <Button
+                            type="submit"
+                            variant="outline-secondary"
+                            >
+                                Save 
+                            </Button>
+                        </InputGroup>
                     </form>
                 </div>
                 <br/>
