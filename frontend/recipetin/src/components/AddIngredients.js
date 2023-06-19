@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 
 
-const Ingredients = ({value})=>{
+const AddIngredients = ({value})=>{
 
     return(
         <ul>
@@ -17,4 +17,4 @@ const Ingredients = ({value})=>{
         </ul>
     );
 };
-export default Ingredients;
+export default AddIngredients;

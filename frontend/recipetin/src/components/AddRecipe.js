@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { InputGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import Ingredients from './Ingredients';
+import AddIngredients from './AddIngredients';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Directions from './Directions';
-
+import AddDirections from './AddDirections';
+import AddName from './AddName';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -34,10 +34,18 @@ const deepCopyFunction = (inObject) => {
 }
 
 const AddRecipe = props =>{
+    const [nameTemp, setNameTemp] = useState(" ")
     const [ingredientTemp,setIngredientTemp] = useState(" ")
     const [directionTemp, setDirectionTemp] = useState(" ")
     const [value,setValue] = useState({
-        name: ' ',
+        name: [
+            {
+                id:0,
+                name:' ',
+                made: false,
+                edit:false
+            }
+        ],
         ingredients: [
             {
                 id:0,
@@ -65,6 +73,19 @@ const AddRecipe = props =>{
 
     const {handleAdd} = props;
 
+    function addName(){
+        const newList = deepCopyFunction(value);
+        const newNameArray = [...newList.name];
+        //change name 
+        newNameArray.at(0).name = nameTemp; //change name
+        newNameArray.at(0).made = !newNameArray.at(0).made;
+        console.log("index : " + newNameArray.at(0));
+        setValue({...newList});
+
+        console.log("new value");
+        console.log(value);
+    }
+
     //Create a new Ingredient object
     function addIngredient(){
         
@@ -80,9 +101,9 @@ const AddRecipe = props =>{
                 ...newIngredientArray,
                 newIngredient
             ]
-        }
+        };
 
-        setValue({...Temp})
+        setValue({...Temp});
     }
 
     function addDirection(){
@@ -107,14 +128,6 @@ const AddRecipe = props =>{
      * Handler methods
      * 
      */
-    const nameHandler = (e) =>{
-        console.log("change = " + e.target.value);
-        setValue({
-            ...value,
-            [e.target.name]: e.target.value
-        });
-    };
-
     //Test if string is blank
     // !str = testing if string is falsey (string length is zero)
     // /^\s*$/ = check if string only contains whitespace
@@ -123,6 +136,16 @@ const AddRecipe = props =>{
     //          true if there is a match; false otherwise.
     function isBlank(str){
         return (!str || /^\s*$/.test(str));
+    }
+    const handleNameSubmit=event=>{
+        event.preventDefault(); // prevent page refresh
+
+        if(isBlank(nameTemp)){
+            alert("Empty submission not allowed");
+        }else{
+            addName(); // add new name
+        }
+        setNameTemp(' '); //clear input value
     }
     const handleIngredientSubmit=event=>{
         event.preventDefault(); //prevent page refresh
@@ -133,8 +156,6 @@ const AddRecipe = props =>{
             addIngredient(); //add new ingredient
         }
         setIngredientTemp(' '); //clear input value
-        console.log("ingredient temp")
-        console.log(ingredientTemp);
     }
 
     const handleDirectionSubmit=event=>{
@@ -167,95 +188,98 @@ const AddRecipe = props =>{
                         >
                             <Card.Body>
                                 <Card.Title>Enter New Recipe Name</Card.Title>
+                                <hr/>
+                                <form onSubmit={handleNameSubmit}>
+                                    <AddName value={value}/>
+                                    <InputGroup
+                                    >
+                                        <Form.Control
+                                        type='text'
+                                        name='nameTemp'
+                                        value={nameTemp}
+                                        onChange={
+                                        e=> setNameTemp(e.target.value)
+                                        }
+                                        />
+                                        <Button
+                                        type="submit"
+                                        variant="outline-secondary"
+                                        >
+                                        Save 
+                                        </Button>
+                                    </InputGroup>
+                                </form>
                             </Card.Body>
-                            <input
-                            value={value.name}
-                            type='text'
-                            name='name'
-                            onChange={nameHandler}
-                        />
-                        <br/>
                         </Card >
                     </Col>
                     <Col
-                    xs={12} lg={6}
+                    xs={12} lg={8}
                     >
-                        ff
+                        <Card
+                        className="mx-auto my-auto p5"
+                        >
+                            <Card.Body>
+                                <Card.Title>Ingredients : </Card.Title>
+                                <hr/>
+                                <AddIngredients value={value}/>
+                                <form onSubmit={handleIngredientSubmit}>
+                                    <InputGroup
+                                    >
+                                        <Form.Control
+                                        type='text'
+                                        name='ingredientTemp'
+                                        value={ingredientTemp}
+                                        onChange={
+                                        e=> setIngredientTemp(e.target.value)
+                                        }
+                                        />
+                                        <Button
+                                        type="submit"
+                                        variant="outline-secondary"
+                                        >
+                                        Save 
+                                        </Button>
+                                    </InputGroup>
+                                </form>
+                            </Card.Body>                
+                        </Card>
                     </Col>
-                    <Col></Col>
+                    <Col
+                    xs={12} lg={8}
+                    >
+                        <Card 
+                        className="mx-auto my-auto p5"
+                        >
+                            <Card.Body>
+                                <Card.Title>Directions : </Card.Title>
+                                <hr/>
+                                <AddDirections value={value} setValue={setValue} />
+                                <form onSubmit={handleDirectionSubmit}>
+                                    <InputGroup
+                                    >
+                                        <Form.Control
+                                        type='text'
+                                        name='directionTemp'
+                                        value={directionTemp}
+                                        onChange={
+                                        e=> setDirectionTemp(e.target.value)
+                                        }
+                                        />
+                                        <Button
+                                        type="submit"
+                                        variant="outline-secondary"
+                                        >
+                                        Save 
+                                        </Button>
+                                    </InputGroup>
+                                </form>
+                            </Card.Body>                
+                        </Card>
+                    </Col>
                 </Row>
             </Container>
-            <Card 
-                className="mx-auto my-auto p5"
-                 style={{width: '18rem'}}>
-                <Card.Body>
-                    <Card.Title>Enter New Recipe Name</Card.Title>
-                </Card.Body>
-                <input
-                    value={value.name}
-                    type='text'
-                    name='name'
-                    onChange={nameHandler}
-                />
-                <br/>
-            </Card >
-                <br/>
-            <Card
-                className="mx-auto my-auto p5"
-                style={{width: '50%',}}>
-                <Card.Body>
-                    <Card.Title>Ingredients : </Card.Title>
-                </Card.Body>
-                <Ingredients value={value}/>
-                <div>
-                    <form onSubmit={handleIngredientSubmit}>
-                        <input
-                        value={ingredientTemp}
-                        type='text'
-                        name='ingredientTemp'
-                        onChange={event => {
-                            setIngredientTemp(event.target.value)
-                        }}
-                        />
-                        <Button
-                        type="submit"
-                        >Save</Button>
-                    </form>
-                </div>
-                <br/>
-            </Card>
-                <br/>
-            <Card 
-                className="mx-auto my-auto p5"
-                style={{width: '50%',}}>
-                <Card.Body>
-                    <Card.Title>Directions : </Card.Title>
-                </Card.Body>
-                <Directions value={value} setValue={setValue} />
-                <div className='m-5'
-                >
-                    <form onSubmit={handleDirectionSubmit}>
-                        <InputGroup
-                        >
-                            <Form.Control
-                            type='text'
-                            name='directionTemp'
-                            value={directionTemp}
-                            onChange={
-                                e=> setDirectionTemp(e.target.value)
-                            }
-                            />
-                            <Button
-                            type="submit"
-                            variant="outline-secondary"
-                            >
-                                Save 
-                            </Button>
-                        </InputGroup>
-                    </form>
-                </div>
-                <br/>
-            </Card>
+            
+            
             <br/>
             <Button>save</Button>
             <br/>
