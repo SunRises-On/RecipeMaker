@@ -63,10 +63,16 @@ const AddDirections = ({value, setValue})=>{
 
         const newList = deepCopyFunction(value);
         const oldDirectionArray = [...newList.directions]; // direction array 
-        const newDirectionArray = oldDirectionArray.filter(
-            d => d.id === index
+        const tempDirectionArray = oldDirectionArray.filter(
+            d => d.id !== index
         )
+        let newId = 0;
         //change ids
+        const newDirectionArray = tempDirectionArray.map((direction)=>{
+            direction.id = newId;
+            ++newId; 
+            return direction;
+        });
         console.log(newDirectionArray);
         const Temp = {
             ...newList,
@@ -74,6 +80,7 @@ const AddDirections = ({value, setValue})=>{
         }
         setValue({...Temp});
         
+        console.log("New here we go .")
         console.log(value);
     }
     function handleDirectionChange(event, index){
