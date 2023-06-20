@@ -226,8 +226,8 @@ const AddRecipe = props =>{
         //turn into one object 
         const Temp = {
             name:tempName,
-            direction:{tempDirectionObj},
-            ingredient:{tempIngredientObj}
+            direction:tempDirectionObj,
+            ingredient:tempIngredientObj
         };
 
         setRecipe({...Temp});

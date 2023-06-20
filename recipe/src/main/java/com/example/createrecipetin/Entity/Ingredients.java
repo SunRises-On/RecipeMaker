@@ -589,10 +589,11 @@ public class Ingredients {
     public String toString() {
 
         String ans = "";
-        List columns = new ArrayList<>();
+        List<String> columns = new ArrayList<String>();
         for(int i=1; i<51; i++){
             columns.add("ingredient_" + i);
         }
+        console.log(columns);
         int counter = 0;
         for(int i =0; i<52; i++){
             if(i==0){ ans += "Ingredients{" + "id=" + id ;}
