@@ -9,7 +9,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AddDirections from './AddDirections';
 import AddName from './AddName';
-
+import { 
+    faFloppyDisk
+ } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -205,7 +207,7 @@ const AddRecipe = props =>{
                                         type="submit"
                                         variant="outline-secondary"
                                         >
-                                        Save 
+                                            <FontAwesomeIcon icon={faFloppyDisk}/>
                                         </Button>
                                     </InputGroup>
                                 </form>
@@ -226,6 +228,7 @@ const AddRecipe = props =>{
                                     <InputGroup
                                     >
                                         <Form.Control
+                                        as="textarea"
                                         type='text'
                                         name='ingredientTemp'
                                         value={ingredientTemp}
@@ -237,7 +240,7 @@ const AddRecipe = props =>{
                                         type="submit"
                                         variant="outline-secondary"
                                         >
-                                        Save 
+                                            <FontAwesomeIcon icon={faFloppyDisk}/>
                                         </Button>
                                     </InputGroup>
                                 </form>
@@ -258,6 +261,7 @@ const AddRecipe = props =>{
                                     <InputGroup
                                     >
                                         <Form.Control
+                                        as="textarea"
                                         type='text'
                                         name='directionTemp'
                                         value={directionTemp}
@@ -266,10 +270,11 @@ const AddRecipe = props =>{
                                         }
                                         />
                                         <Button
+                                        className = "text-nowrap"
                                         type="submit"
                                         variant="outline-secondary"
                                         >
-                                        Save 
+                                            <FontAwesomeIcon icon={faFloppyDisk}/>
                                         </Button>
                                     </InputGroup>
                                 </form>

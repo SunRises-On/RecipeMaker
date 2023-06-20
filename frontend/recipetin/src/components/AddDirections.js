@@ -104,12 +104,14 @@ const AddDirections = ({value, setValue})=>{
                     {item.edit?(
                         <InputGroup>
                             <Form.Control
+                            as="textarea"
                             type='text'
                             value={item.name}
                             onChange={
                                 e=> 
                                 handleDirectionChange(e, item.id)
                             }
+                            style={{fontFamily:'Verdana', fontSize:'1em'}}
                             />
                             <Button
                                 onClick={()=>{updateEdit(item.id)}}
@@ -144,7 +146,9 @@ const AddDirections = ({value, setValue})=>{
                                 whiteSpace:'pre-wrap',
                                 //whiteSpace: 'normal',
                                 //justifyContent:'left',
-                                textAlign:'left'
+                                textAlign:'left',
+                                fontFamily:'Verdana',
+                                fontSize:'1em'
                                 }}
                                 >
                                     {item.name}
