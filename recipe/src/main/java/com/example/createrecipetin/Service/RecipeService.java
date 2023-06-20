@@ -1,10 +1,10 @@
-package com.example.recipe.Service;
+package com.example.createrecipetin.Service;
 
 
-import com.example.recipe.Entity.Recipe;
-import com.example.recipe.Repo.DirectionsRepo;
-import com.example.recipe.Repo.IngredientsRepo;
-import com.example.recipe.Repo.RecipeRepo;
+import com.example.createrecipetin.Entity.Recipe;
+import com.example.createrecipetin.Repo.DirectionsRepo;
+import com.example.createrecipetin.Repo.IngredientsRepo;
+import com.example.createrecipetin.Repo.RecipeRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AddDirections from './AddDirections';
 import AddName from './AddName';
+import { AddRecipeAxios } from '../services/RecipeService';
 import { 
     faFloppyDisk
  } from '@fortawesome/free-solid-svg-icons';
@@ -39,6 +40,11 @@ const AddRecipe = props =>{
     const [nameTemp, setNameTemp] = useState(" ")
     const [ingredientTemp,setIngredientTemp] = useState(" ")
     const [directionTemp, setDirectionTemp] = useState(" ")
+    const [recipe,setRecipe] = useState({
+        name: "",
+        direction: {},
+        ingredient: {}
+    });
     const [value,setValue] = useState({
         name: [
             {
@@ -173,7 +179,61 @@ const AddRecipe = props =>{
         console.log(directionTemp)
     }
 
+    function handleRecipeAddAxios(){
+        formatObject();
+        AddRecipeAxios(recipe);
+    }
+//format array of objects value
+    //So it can be correctly mapped by the
+    //backend, into databases.
+    function formatObject(){
+        const newList = deepCopyFunction(value);
+        const newNameArray = [...newList.name];
+        const newDirectionArray=[...newList.directions];
+        const newIngredientArray = [...newList.ingredients];
 
+        const tempName = newNameArray.at(0).name; 
+
+        //Javascript object is a collection of properties, and a property 
+        //is an association between a name(or key) and a value
+        //get rid of unneeded values and only keep name property ^^
+        const tempDirectionArray = newDirectionArray.map((direction)=>{
+            let num = direction.id + 1;
+            const column = "direction_"+ num;
+            const d = {[column] : direction.name}
+            return d
+        });
+        console.log(tempDirectionArray)
+        const tempIngredientArray = newIngredientArray.map((ingredient)=>{
+            let num = ingredient.id + 1;
+            const column = "ingredient_"+num;
+            const i = {[column] : ingredient.name}
+            return i
+        })
+
+
+        let tempDirectionObj = {};
+        //Now convert array of objects into a single object
+        for(let i =0; i< tempDirectionArray.length; i++){
+            Object.assign(tempDirectionObj, tempDirectionArray[i]);
+        }
+        let tempIngredientObj = {};
+        for(let i=0; i<tempIngredientArray.length; i++){
+            Object.assign(tempIngredientObj, tempIngredientArray[i]);
+        }
+
+        console.log(tempIngredientArray)
+        //turn into one object 
+        const Temp = {
+            name:tempName,
+            direction:{tempDirectionObj},
+            ingredient:{tempIngredientObj}
+        };
+
+        setRecipe({...Temp});
+        console.log("Recipe = this ^^")
+        console.log(recipe)
+    }
     return(
         <div>
             
@@ -286,7 +346,9 @@ const AddRecipe = props =>{
             
             
             <br/>
-            <Button>save</Button>
+            <Button
+            onClick={handleRecipeAddAxios}
+            >save</Button>
             <br/>
         </div>
     );

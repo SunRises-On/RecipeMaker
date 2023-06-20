@@ -13,10 +13,8 @@ import {
 
 
 export default function Home(){
-    const image = {tin};
-    const imageElement = new Image();
-    imageElement.src = image;
-
+    
+    
     return(
             <Container
             fluid 

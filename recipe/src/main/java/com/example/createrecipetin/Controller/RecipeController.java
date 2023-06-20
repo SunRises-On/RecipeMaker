@@ -1,10 +1,13 @@
-package com.example.recipe.Controller;
+package com.example.createrecipetin.Controller;
 
 
-import com.example.recipe.Entity.Directions;
-import com.example.recipe.Entity.Ingredients;
-import com.example.recipe.Entity.Recipe;
-import com.example.recipe.Service.RecipeService;
+import com.example.createrecipetin.Entity.Directions;
+import com.example.createrecipetin.Entity.Ingredients;
+import com.example.createrecipetin.Entity.Recipe;
+import com.example.createrecipetin.Repo.DirectionsRepo;
+import com.example.createrecipetin.Repo.IngredientsRepo;
+import com.example.createrecipetin.Repo.RecipeRepo;
+import com.example.createrecipetin.Service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.rmi.ServerException;
 
 
-@CrossOrigin(value="http://localhost:3000")
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/recipe")
 public class RecipeController {
@@ -22,20 +25,19 @@ public class RecipeController {
     @Autowired
     RecipeService recipeService;
     @Autowired
-    private Recipe recipeRepo;
+    private RecipeRepo recipeRepo;
     @Autowired
-    private Directions directionsRepo;
+    private DirectionsRepo directionsRepo;
     @Autowired
-    private Ingredients ingredientsRepo;
+    private IngredientsRepo ingredientsRepo;
 
 
     @PostMapping(value="/upload",
-        consumes= MediaType.APPLICATION_JSON_VALUE,
-        produces= MediaType.APPLICATION_JSON_VALUE
+        consumes= "application/json",
+        produces= "application/json"
     )
-    public ResponseEntity createRecipe(@RequestBody Recipe newRecipe) throws ServerException {
-        System.out.println(newRecipe);
-
+    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe newRecipe) throws ServerException {
+        System.out.println(newRecipe.toString());
         Recipe recipe = recipeService.save(newRecipe);
         if(recipe == null){
             throw new ServerException("Error creating new recipe.");
