@@ -1,0 +1,32 @@
+{
+  "name": "Chinese Orange Chicken",
+  "direction": {
+    "direction_1": "In a medium pot, add orange juice, sugar, vinegar, soy sauce, ginger, garlic, and red chili flakes. Heat for 3 minutes.",
+    "direction_2": "In a small bowl, whisk 1 Tablespoon of cornstarch with 2 Tablespoons of water to form a paste. Add to orange sauce and whisk together. Continue to cook for 5 minutes, until the mixture begins to thicken. Once the sauce is thickened, remove from heat and add orange zest.",
+    "direction_3": "Place flour and cornstarch in a shallow dish or pie plate. Add a generous pinch of salt. Stir.",
+    "direction_4": "Whisk eggs in shallow dish.",
+    "direction_5": "Dip chicken pieces in egg mixture and then flour mixture. Place on plate.",
+    "direction_1": "Heat 2 -3 inches of oil in a heavy-bottomed pot over medium-high heat. Using a thermometer, watch for it to reach 350 degrees.",
+    "direction_2": "Working in batches, cook several chicken pieces at a time. Cook for 2 - 3 minutes, turning often until golden brown. Place chicken on a paper-towel-lined plate. Repeat.",
+    "direction_3": "Toss chicken with orange sauce. You may reserve some of the sauce to place on rice. Serve it with a sprinkling of green onion and orange zest, if so desired."
+  },
+  "ingredient": {
+    "ingredient_1": "4 Boneless Skinless Chicken Breasts cut into bite-size pieces",
+    "ingredient_2": "3 Eggs whisked",
+    "ingredient_3": "⅓ cup Cornstarch",
+    "ingredient_4": "⅓ cup Flour",
+    "ingredient_5": "Salt",
+    "ingredient_1": "Oil for frying",
+    "ingredient_2": "1 cup Orange Juice",
+    "ingredient_3": "½ cup Sugar",
+    "ingredient_4": "2 Tablespoons Rice Vinegar or White Vinegar",
+    "ingredient_5": "2 Tablespoons Soy Sauce use tamari for a gluten-free dish",
+    "ingredient_1": "¼ teaspoon Ginger",
+    "ingredient_2": "¼ teaspoon Garlic Powder or 2 garlic cloves, finely diced",
+    "ingredient_3": "½ teaspoon Red Chili Flakes",
+    "ingredient_4": "Orange Zest from 1 orange",
+    "ingredient_5": "1 Tablespoon Cornstarch",
+    "ingredient_1": "Green Onions",
+    "ingredient_2": "Orange Zest"
+  }
+}

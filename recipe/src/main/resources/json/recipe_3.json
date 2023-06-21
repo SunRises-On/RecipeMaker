@@ -1,0 +1,35 @@
+{
+  "name": "Swedish Meatballs",
+  "direction": {
+    "direction_1": "In a large bowl combine ground beef and pork; mix with your fingers, breaking up any lumps. Mix in all the other meatball ingredients (except the olive oil) until combined.",
+    "direction_2": "Using a cookie scoop or your hands, shape the mixture into 1 1/2-inch balls. (Place on a clean platter, cover and refrigerate for about 30 minutes, if possible – this helps them retain their round shape when cooking.)",
+    "direction_3": "In a large nonstick skillet, warm the olive oil over medium-high heat until shimmering. Working in batches to avoid crowding, add the meatballs and cook turning continuously until browned on all sides and cooked through, about 5-6 minutes. Repeat with the remaining meatballs. Transfer to a plate and cover with foil.",
+    "direction_4": "Add the butter to the skillet and once melted, whisk in the flour; stir to combine and cook stirring constantly for about 1 minute until no lumps remain and flour just begins to brown.",
+    "direction_5": "Slowly whisk in the beef broth and then the heavy cream. Whisk in the soy sauce and mustard; bring to a simmer, then turn down the heat to a gentle simmer and let the sauce thicken, stirring constantly, 1 to 2 minutes. Season with salt and pepper to taste.",
+    "direction_6": "Add the meatballs back to the skillet and simmer for another 3 minutes to finish cooking and warm through.",
+    "direction_7": "Serve over cooked egg noodles with a sprinkle of parsley."
+  },
+  "ingredient": {
+    "ingredient_1": "1 pound lean ground beef",
+    "ingredient_2": "1/2 pound ground pork",
+    "ingredient_3": "1 small sweet onion , finely diced",
+    "ingredient_4": "1 clove garlic , minced",
+    "ingredient_5": "1/2 cup Panko breadcrumbs",
+    "ingredient_6": "1 large egg , lightly beaten",
+    "ingredient_7": "1/3 cup whole milk",
+    "ingredient_8": "1 teaspoon kosher salt",
+    "ingredient_9": "1/2 teaspoon pepper",
+    "ingredient_10": "1/8 teaspoon allspice",
+    "ingredient_11": "1/8 teaspoon nutmeg",
+    "ingredient_12": "2 tablespoons extra-virgin olive oil , for frying pan",
+    "ingredient_13": "5 tablespoons unsalted butter",
+    "ingredient_14": "1/4 cup all-purpose flour",
+    "ingredient_15": "1 & 1/4 cups beef broth",
+    "ingredient_16": "3/4 cup heavy cream",
+    "ingredient_17": "3 teaspoons low-sodium soy sauce",
+    "ingredient_18": "1 teaspoon Dijon mustard",
+    "ingredient_19": "Salt and pepper , to taste",
+    "ingredient_20": "sprinkle of finely chopped fresh parsley",
+    "ingredient_21": "Cooked egg noodles"
+  }
+}

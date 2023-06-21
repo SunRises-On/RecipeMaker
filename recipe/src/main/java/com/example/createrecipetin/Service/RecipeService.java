@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class RecipeService {
@@ -24,5 +26,13 @@ public class RecipeService {
         //recipeRepo.save(recipe);
         Recipe newRecipe = recipeRepo.save(recipe);
         return newRecipe;
+    }
+
+    public Iterable<Recipe> list(){
+        return recipeRepo.findAll();
+    }
+
+    public Iterable<Recipe> saveAll(List<Recipe> recipes){
+        return recipeRepo.saveAll(recipes);
     }
 }
