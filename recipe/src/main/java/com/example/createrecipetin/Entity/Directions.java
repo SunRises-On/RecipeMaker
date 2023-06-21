@@ -2,6 +2,8 @@ package com.example.createrecipetin.Entity;
 
 import jakarta.persistence.*;
 
+import java.lang.reflect.Field;
+
 
 @Entity
 @Table(name="directions")
@@ -581,62 +583,42 @@ public class Directions {
     public void setDirection_50(String direction_50) {
         this.direction_50 = direction_50;
     }
-
+    /**
+     *  Use library Reflections to create a toString() method. That doesn't print null ingredient_N columns.
+     *  Since I have no idea is a column is null we have to relly on Reflections to introspect itself.
+     *  Delete function when no longer needed.
+     * */
     @Override
     public String toString() {
-        return "Directions{" +
-                "id=" + id +
-                ", recipe=" + recipe +
-                ", direction_1='" + direction_1 + '\'' +
-                ", direction_2='" + direction_2 + '\'' +
-                ", direction_3='" + direction_3 + '\'' +
-                ", direction_4='" + direction_4 + '\'' +
-                ", direction_5='" + direction_5 + '\'' +
-                ", direction_6='" + direction_6 + '\'' +
-                ", direction_7='" + direction_7 + '\'' +
-                ", direction_8='" + direction_8 + '\'' +
-                ", direction_9='" + direction_9 + '\'' +
-                ", direction_10='" + direction_10 + '\'' +
-                ", direction_11='" + direction_11 + '\'' +
-                ", direction_12='" + direction_12 + '\'' +
-                ", direction_13='" + direction_13 + '\'' +
-                ", direction_14='" + direction_14 + '\'' +
-                ", direction_15='" + direction_15 + '\'' +
-                ", direction_16='" + direction_16 + '\'' +
-                ", direction_17='" + direction_17 + '\'' +
-                ", direction_18='" + direction_18 + '\'' +
-                ", direction_19='" + direction_19 + '\'' +
-                ", direction_20='" + direction_20 + '\'' +
-                ", direction_21='" + direction_21 + '\'' +
-                ", direction_22='" + direction_22 + '\'' +
-                ", direction_23='" + direction_23 + '\'' +
-                ", direction_24='" + direction_24 + '\'' +
-                ", direction_25='" + direction_25 + '\'' +
-                ", direction_26='" + direction_26 + '\'' +
-                ", direction_27='" + direction_27 + '\'' +
-                ", direction_28='" + direction_28 + '\'' +
-                ", direction_29='" + direction_29 + '\'' +
-                ", direction_30='" + direction_30 + '\'' +
-                ", direction_31='" + direction_31 + '\'' +
-                ", direction_32='" + direction_32 + '\'' +
-                ", direction_33='" + direction_33 + '\'' +
-                ", direction_34='" + direction_34 + '\'' +
-                ", direction_35='" + direction_35 + '\'' +
-                ", direction_36='" + direction_36 + '\'' +
-                ", direction_37='" + direction_37 + '\'' +
-                ", direction_38='" + direction_38 + '\'' +
-                ", direction_39='" + direction_39 + '\'' +
-                ", direction_40='" + direction_40 + '\'' +
-                ", direction_41='" + direction_41 + '\'' +
-                ", direction_42='" + direction_42 + '\'' +
-                ", direction_43='" + direction_43 + '\'' +
-                ", direction_44='" + direction_44 + '\'' +
-                ", direction_45='" + direction_45 + '\'' +
-                ", direction_46='" + direction_46 + '\'' +
-                ", direction_47='" + direction_47 + '\'' +
-                ", direction_48='" + direction_48 + '\'' +
-                ", direction_49='" + direction_49 + '\'' +
-                ", direction_50='" + direction_50 + '\'' +
-                '}';
+        //Get all field objects of the class
+        Field[] fields = Directions.class.getDeclaredFields();
+        String ans = "Directions{";
+        for(int i=0; i< fields.length; i++){
+
+            try {
+                if( (i<2) || ( (i>1) && (fields[i].get(this) != null) ) ){
+
+                    fields[i].setAccessible(true);
+                    //get value of the field
+                    String value = (String) fields[i].get(this);
+
+                    if(i==0){
+                        ans += fields[i].getName() + " = " + value ;
+                    }else if(i==1){
+                        ans += ", "+ fields[i].getName() + " = " + value ;
+                    }
+                    else{
+                        ans += ", "+ fields[i].getName() + " = " + "\'"+ value + "\'" ;
+
+                    }
+                }
+
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        ans += "}";
+        return ans;
+
     }
 }

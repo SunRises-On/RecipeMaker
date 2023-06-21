@@ -3,6 +3,7 @@ package com.example.createrecipetin.Entity;
 
 import jakarta.persistence.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -585,30 +586,42 @@ public class Ingredients {
         this.ingredient_50 = ingredient_50;
     }
 
+    /**
+     *  Use library Reflections to create a toString() method. That doesn't print null ingredient_N columns.
+     *  Since I have no idea is a column is null we have to relly on Reflections to introspect itself.
+     *  Delete function when no longer needed.
+     * */
     @Override
     public String toString() {
+        //Get all field objects of the class
+        Field[] fields = Ingredients.class.getDeclaredFields();
+        String ans = "Ingredients{";
+        for(int i=0; i< fields.length; i++){
 
-        String ans = "";
-        List<String> columns = new ArrayList<String>();
-        for(int i=1; i<51; i++){
-            columns.add("ingredient_" + i);
-        }
-        console.log(columns);
-        int counter = 0;
-        for(int i =0; i<52; i++){
-            if(i==0){ ans += "Ingredients{" + "id=" + id ;}
-            else if(i==1){ ans += "recipe=" + recipe ;}
-            else{
-                if( columns.get(counter) == null){
-                    break;
-                }else{
-                    ans += ", " + columns.get(counter) + "\'";
+            try {
+                if( (i<2) || ( (i>1) && (fields[i].get(this) != null) ) ){
+
+                    fields[i].setAccessible(true);
+                    //get value of the field
+                    String value = (String) fields[i].get(this);
+
+                    if(i==0){
+                        ans += fields[i].getName() + " = " + value ;
+                    }else if(i==1){
+                        ans += ", "+ fields[i].getName() + " = " + value ;
+                    }
+                    else{
+                        ans += ", "+ fields[i].getName() + " = " + "\'"+ value + "\'" ;
+
+                    }
                 }
-            }
-            ++counter;
-        }
 
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
         ans += "}";
         return ans;
+
     }
 }
