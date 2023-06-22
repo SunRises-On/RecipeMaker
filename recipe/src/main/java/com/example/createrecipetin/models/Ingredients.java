@@ -1,4 +1,4 @@
-package com.example.createrecipetin.Entity;
+package com.example.createrecipetin.models;
 
 
 import jakarta.persistence.*;

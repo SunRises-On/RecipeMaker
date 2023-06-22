@@ -1,27 +1,20 @@
 package com.example.createrecipetin.utils;
 
-import com.example.createrecipetin.Entity.Recipe;
-import com.example.createrecipetin.Repo.DirectionsRepo;
-import com.example.createrecipetin.Repo.IngredientsRepo;
-import com.example.createrecipetin.Repo.RecipeRepo;
-import com.example.createrecipetin.Service.RecipeService;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.example.createrecipetin.models.Recipe;
+import com.example.createrecipetin.repositories.InstructionsRepo;
+import com.example.createrecipetin.repositories.IngredientsRepo;
+import com.example.createrecipetin.repositories.RecipeRepo;
+import com.example.createrecipetin.service.RecipeService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Iterator;
 
 
 /***
@@ -35,7 +28,7 @@ public class MyRunner implements CommandLineRunner {
     @Autowired
     private RecipeRepo recipeRepo;
     @Autowired
-    private DirectionsRepo directionsRepo;
+    private InstructionsRepo instructionsRepo;
     @Autowired
     private IngredientsRepo ingredientsRepo;
     @Autowired
@@ -43,7 +36,11 @@ public class MyRunner implements CommandLineRunner {
     @Override
     public void run(String...args) throws Exception{
         System.out.println("ApplicationRunner called");
+        //part of the Jackson API
+        //ObjectMapper is used to parse or deserialize (byte stream is used to recreate the actual Java object in memory)
+        //JSON content into a Java object
         ObjectMapper mapper = new ObjectMapper();
+        //
         TypeReference<Recipe> typeReference = new TypeReference<Recipe>(){};
         try{
             for(int i = 0 ; i< 6; i++){
@@ -54,7 +51,8 @@ public class MyRunner implements CommandLineRunner {
                 //InputStream class of the java.io packages is an
                 //abstract superclass that represents an input stream of bytes
                 InputStream inputStream = TypeReference.class.getResourceAsStream("/json/"+fileName+".json");
-                
+
+
                 Recipe recipe = mapper.readValue(inputStream, typeReference);
                 recipeService.save(recipe);
             }
@@ -62,6 +60,17 @@ public class MyRunner implements CommandLineRunner {
         }catch(IOException e){
             System.out.println("Unable to save recipes: " + e.getMessage());
         }
+
+        logger.info("The number of recipes: {}", recipeRepo.count());
+        logger.info("All recipes unsorted:");
+
+        Iterable <Recipe> recipes = recipeRepo.findAll();
+        Iterator<Recipe> iterator = recipes.iterator();
+        while (iterator.hasNext()) {
+            logger.info("{}", iterator.next().toString());
+        }
+
+        logger.info("--------------------------------");
 
 
     }

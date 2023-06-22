@@ -1,6 +1,5 @@
-package com.example.createrecipetin.Entity;
+package com.example.createrecipetin.models;
 
-import com.example.createrecipetin.Entity.Ingredients;
 import jakarta.persistence.*;
 
 
@@ -20,7 +19,7 @@ public class Recipe {
             cascade=CascadeType.ALL,
             mappedBy="recipe"
     )
-    private Directions direction;
+    private Instructions instruction;
 
     @OneToOne( fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
@@ -44,12 +43,12 @@ public class Recipe {
         this.name = name;
     }
 
-    public Directions getDirection() {
-        return direction;
+    public Instructions getInstruction() {
+        return instruction;
     }
 
-    public void setDirection(Directions direction) {
-        this.direction = direction;
+    public void setInstruction(Instructions instruction) {
+        this.instruction = instruction;
     }
 
     public Ingredients getIngredient() {
@@ -65,7 +64,7 @@ public class Recipe {
         return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", direction=" + direction +
+                ", instruction=" + instruction +
                 ", ingredient=" + ingredient +
                 '}';
     }

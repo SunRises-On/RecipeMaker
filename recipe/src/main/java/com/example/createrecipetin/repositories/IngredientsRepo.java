@@ -1,7 +1,7 @@
-package com.example.createrecipetin.Repo;
+package com.example.createrecipetin.repositories;
 
 
-import com.example.createrecipetin.Entity.Ingredients;
+import com.example.createrecipetin.models.Ingredients;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

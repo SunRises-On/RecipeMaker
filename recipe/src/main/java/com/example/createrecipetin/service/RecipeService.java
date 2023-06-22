@@ -1,10 +1,10 @@
-package com.example.createrecipetin.Service;
+package com.example.createrecipetin.service;
 
 
-import com.example.createrecipetin.Entity.Recipe;
-import com.example.createrecipetin.Repo.DirectionsRepo;
-import com.example.createrecipetin.Repo.IngredientsRepo;
-import com.example.createrecipetin.Repo.RecipeRepo;
+import com.example.createrecipetin.models.Recipe;
+import com.example.createrecipetin.repositories.InstructionsRepo;
+import com.example.createrecipetin.repositories.IngredientsRepo;
+import com.example.createrecipetin.repositories.RecipeRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class RecipeService {
     @Autowired
     private RecipeRepo recipeRepo;
     @Autowired
-    private DirectionsRepo directionsRepo;
+    private InstructionsRepo instructionsRepo;
     @Autowired
     private IngredientsRepo ingredientsRepo;
 

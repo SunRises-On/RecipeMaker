@@ -1,12 +1,12 @@
 {
   "name": "Artichoke Pasta",
-  "direction": {
-    "direction_1": "Set a large pot of salted water to boil. Cook pasta until al dente according to package directions.",
-    "direction_2": "While the pasta is cooking, melt olive oil and butter in a large nonstick pan over medium-high heat. Add onion; sauté for about 3 minutes until soft and translucent. Stir in garlic and cook for 30 seconds until fragrant.",
-    "direction_3": "Add in the tomatoes (with their juices) and artichokes; gently stir to combine.",
-    "direction_4": "Add in the salt, pepper, and nutmeg. Let simmer for 5 minutes.",
-    "direction_5": "Reduce heat to low and add in the cream and broth. Stir in the Parmesan. Warm through. Taste and adjust seasoning, if necessary.",
-    "direction_6": "Drain the pasta and add to the sauce and mix thoroughly. Sprinkle with parsley, toss, and serve hot."
+  "instruction": {
+    "instruction_1": "Set a large pot of salted water to boil. Cook pasta until al dente according to package directions.",
+    "instruction_2": "While the pasta is cooking, melt olive oil and butter in a large nonstick pan over medium-high heat. Add onion; sauté for about 3 minutes until soft and translucent. Stir in garlic and cook for 30 seconds until fragrant.",
+    "instruction_3": "Add in the tomatoes (with their juices) and artichokes; gently stir to combine.",
+    "instruction_4": "Add in the salt, pepper, and nutmeg. Let simmer for 5 minutes.",
+    "instruction_5": "Reduce heat to low and add in the cream and broth. Stir in the Parmesan. Warm through. Taste and adjust seasoning, if necessary.",
+    "instruction_6": "Drain the pasta and add to the sauce and mix thoroughly. Sprinkle with parsley, toss, and serve hot."
   },
   "ingredient": {
     "ingredient_1": "1 pound dry spaghetti",

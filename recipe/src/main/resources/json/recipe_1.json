@@ -1,15 +1,15 @@
 {
   "name": "Pad Thai",
-  "direction": {
-    "direction_1": "Place noodles in a large bowl, pour over plenty of boiling water. Soak for 5 minutes, then drain in a colander and quickly rinse under cold water. Don’t leave them sitting around for more than 5 – 10 minutes.",
-    "direction_2": "Mix Sauce in small bowl.",
-    "direction_3": "Heat 2 tbsp oil in a large non stick pan (or well seasoned skillet) over high heat. Add garlic and onion, cook for 30 seconds.",
-    "direction_4": "Add chicken and cook for 1 1/2 minutes until mostly cooked through.",
-    "direction_5": "Push to one side of the pan, pour egg in on the other side. Scramble using the wooden spoon (add touch of extra oil if pan is too dry), then mix into chicken.",
-    "direction_6": "Add bean sprouts, tofu, noodles then Sauce.",
-    "direction_7": "Toss gently for about 1 1/2 minutes until Sauce is absorbed by the noodles.",
-    "direction_8": "Add garlic chives and half the peanuts. Toss through quickly then remove from heat.",
-    "direction_9": "Serve immediately, sprinkled with remaining peanuts and lime wedges on the side, with a sprinkle of chilli and a handful of extra beansprouts on the side if desired (this is the Thai way!). Squeeze over lime juice to taste before eating."
+  "instruction": {
+    "instruction_1": "Place noodles in a large bowl, pour over plenty of boiling water. Soak for 5 minutes, then drain in a colander and quickly rinse under cold water. Don’t leave them sitting around for more than 5 – 10 minutes.",
+    "instruction_2": "Mix Sauce in small bowl.",
+    "instruction_3": "Heat 2 tbsp oil in a large non stick pan (or well seasoned skillet) over high heat. Add garlic and onion, cook for 30 seconds.",
+    "instruction_4": "Add chicken and cook for 1 1/2 minutes until mostly cooked through.",
+    "instruction_5": "Push to one side of the pan, pour egg in on the other side. Scramble using the wooden spoon (add touch of extra oil if pan is too dry), then mix into chicken.",
+    "instruction_6": "Add bean sprouts, tofu, noodles then Sauce.",
+    "instruction_7": "Toss gently for about 1 1/2 minutes until Sauce is absorbed by the noodles.",
+    "instruction_8": "Add garlic chives and half the peanuts. Toss through quickly then remove from heat.",
+    "instruction_9": "Serve immediately, sprinkled with remaining peanuts and lime wedges on the side, with a sprinkle of chilli and a handful of extra beansprouts on the side if desired (this is the Thai way!). Squeeze over lime juice to taste before eating."
   },
   "ingredient": {
     "ingredient_1": "125g (4oz) Pad Thai dried rice sticks",
