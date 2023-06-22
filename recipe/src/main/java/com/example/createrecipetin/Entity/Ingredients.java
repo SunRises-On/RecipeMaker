@@ -4,8 +4,6 @@ package com.example.createrecipetin.Entity;
 import jakarta.persistence.*;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name="ingredients")

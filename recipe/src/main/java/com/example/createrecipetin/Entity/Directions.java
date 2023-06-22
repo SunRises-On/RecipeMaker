@@ -18,154 +18,204 @@ public class Directions {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    @Column(name="direction_1")
+    @Lob
+    @Column(name="direction_1", length=512)
     private String direction_1;
 
-    @Column(name="direction_2")
+    @Lob
+    @Column(name="direction_2", length=512)
     private String direction_2;
 
-    @Column(name="direction_3")
+    @Lob
+    @Column(name="direction_3", length=512)
     private String direction_3;
 
-    @Column(name="direction_4")
+    @Lob
+    @Column(name="direction_4", length=512)
     private String direction_4;
 
-    @Column(name="direction_5")
+    @Lob
+    @Column(name="direction_5", length=512)
     private String direction_5;
 
-    @Column(name="direction_6")
+    @Lob
+    @Column(name="direction_6", length=512)
     private String direction_6;
 
-    @Column(name="direction_7")
+    @Lob
+    @Column(name="direction_7", length=512)
     private String direction_7;
 
-    @Column(name="direction_8")
+    @Lob
+    @Column(name="direction_8", length=512)
     private String direction_8;
 
-    @Column(name="direction_9")
+    @Lob
+    @Column(name="direction_9", length=512)
     private String direction_9;
 
-    @Column(name="direction_10")
+    @Lob
+    @Column(name="direction_10", length=512)
     private String direction_10;
 
-    @Column(name="direction_11")
+    @Lob
+    @Column(name="direction_11", length=512)
     private String direction_11;
 
-    @Column(name="direction_12")
+    @Lob
+    @Column(name="direction_12", length=512)
     private String direction_12;
 
-    @Column(name="direction_13")
+    @Lob
+    @Column(name="direction_13", length=512)
     private String direction_13;
 
-    @Column(name="direction_14")
+    @Lob
+    @Column(name="direction_14", length=512)
     private String direction_14;
 
-    @Column(name="direction_15")
+    @Lob
+    @Column(name="direction_15", length=512)
     private String direction_15;
 
-    @Column(name="direction_16")
+    @Lob
+    @Column(name="direction_16", length=512)
     private String direction_16;
 
-    @Column(name="direction_17")
+    @Lob
+    @Column(name="direction_17", length=512)
     private String direction_17;
 
-    @Column(name="direction_18")
+    @Lob
+    @Column(name="direction_18", length=512)
     private String direction_18;
 
-    @Column(name="direction_19")
+    @Lob
+    @Column(name="direction_19", length=512)
     private String direction_19;
 
-    @Column(name="direction_20")
+    @Lob
+    @Column(name="direction_20", length=512)
     private String direction_20;
 
-    @Column(name="direction_21")
+    @Lob
+    @Column(name="direction_21", length=512)
     private String direction_21;
 
-    @Column(name="direction_22")
+    @Lob
+    @Column(name="direction_22", length=512)
     private String direction_22;
 
-    @Column(name="direction_23")
+    @Lob
+    @Column(name="direction_23", length=512)
     private String direction_23;
 
-    @Column(name="direction_24")
+    @Lob
+    @Column(name="direction_24", length=512)
     private String direction_24;
 
-    @Column(name="direction_25")
+    @Lob
+    @Column(name="direction_25", length=512)
     private String direction_25;
 
-    @Column(name="direction_26")
+    @Lob
+    @Column(name="direction_26", length=512)
     private String direction_26;
 
-    @Column(name="direction_27")
+    @Lob
+    @Column(name="direction_27", length=512)
     private String direction_27;
 
-    @Column(name="direction_28")
+    @Lob
+    @Column(name="direction_28", length=512)
     private String direction_28;
 
-    @Column(name="direction_29")
+    @Lob
+    @Column(name="direction_29", length=512)
     private String direction_29;
 
-    @Column(name="direction_30")
+    @Lob
+    @Column(name="direction_30", length=512)
     private String direction_30;
 
-    @Column(name="direction_31")
+    @Lob
+    @Column(name="direction_31", length=512)
     private String direction_31;
 
-    @Column(name="direction_32")
+    @Lob
+    @Column(name="direction_32", length=512)
     private String direction_32;
 
-    @Column(name="direction_33")
+    @Lob
+    @Column(name="direction_33", length=512)
     private String direction_33;
 
-    @Column(name="direction_34")
+    @Lob
+    @Column(name="direction_34", length=512)
     private String direction_34;
 
-    @Column(name="direction_35")
+    @Lob
+    @Column(name="direction_35", length=512)
     private String direction_35;
 
-    @Column(name="direction_36")
+    @Lob
+    @Column(name="direction_36", length=512)
     private String direction_36;
 
-    @Column(name="direction_37")
+    @Lob
+    @Column(name="direction_37", length=512)
     private String direction_37;
 
-    @Column(name="direction_38")
+    @Lob
+    @Column(name="direction_38", length=512)
     private String direction_38;
 
-    @Column(name="direction_39")
+    @Lob
+    @Column(name="direction_39", length=512)
     private String direction_39;
 
-    @Column(name="direction_40")
+    @Lob
+    @Column(name="direction_40", length=512)
     private String direction_40;
 
-    @Column(name="direction_41")
+    @Lob
+    @Column(name="direction_41", length=512)
     private String direction_41;
 
-    @Column(name="direction_42")
+    @Lob
+    @Column(name="direction_42", length=512)
     private String direction_42;
 
-    @Column(name="direction_43")
+    @Lob
+    @Column(name="direction_43", length=512)
     private String direction_43;
 
-    @Column(name="direction_44")
+    @Lob
+    @Column(name="direction_44", length=512)
     private String direction_44;
 
-    @Column(name="direction_45")
+    @Lob
+    @Column(name="direction_45", length=512)
     private String direction_45;
 
-    @Column(name="direction_46")
+    @Lob
+    @Column(name="direction_46", length=512)
     private String direction_46;
 
-    @Column(name="direction_47")
+    @Lob
+    @Column(name="direction_47", length=512)
     private String direction_47;
 
-    @Column(name="direction_48")
+    @Lob
+    @Column(name="direction_48", length=512)
     private String direction_48;
 
-    @Column(name="direction_49")
+    @Lob
+    @Column(name="direction_49", length=512)
     private String direction_49;
 
-    @Column(name="direction_50")
+    @Lob
+    @Column(name="direction_50", length=512)
     private String direction_50;
 
     public Long getId() {
