@@ -7,6 +7,7 @@ import com.example.createrecipetin.repositories.InstructionsRepo;
 import com.example.createrecipetin.repositories.IngredientsRepo;
 import com.example.createrecipetin.repositories.RecipeRepo;
 import com.example.createrecipetin.service.RecipeService;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 
 import java.rmi.ServerException;
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin(origins="http://localhost:3000")
@@ -68,6 +70,16 @@ public class RecipeController {
      //       Ingredients ing = ingredientsRepo.getByRecipeId(recipe.getId());
       //      System.out.println(recipe);
       //  }
+        return new ResponseEntity(r, HttpStatus.OK);
+    }
+
+    @GetMapping (path ="/{id}")
+    public ResponseEntity<Recipe> getRecipe(@PathVariable Long id){
+        System.out.println("id = " + id);
+        //findById is eager loaded so it will immediately populate the entity
+        //getReferenceById was crashing the program when I tried to convert it to ResponseEntity
+        Optional<Recipe> r = recipeRepo.findById(id);
+        System.out.println(r);
         return new ResponseEntity(r, HttpStatus.OK);
     }
 }
