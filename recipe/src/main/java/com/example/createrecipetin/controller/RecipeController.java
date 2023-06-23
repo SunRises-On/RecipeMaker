@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.HttpHeaders;
@@ -80,6 +81,63 @@ public class RecipeController {
         //getReferenceById was crashing the program when I tried to convert it to ResponseEntity
         Optional<Recipe> r = recipeRepo.findById(id);
         System.out.println(r);
-        return new ResponseEntity(r, HttpStatus.OK);
+        if(r.isEmpty()){
+
+            throw new IllegalArgumentException("Error getting Recipe by id.");
+        } else{
+            return new ResponseEntity(r, HttpStatus.CREATED);
+        }
+
+    }
+
+    @PutMapping(path="/{id}")
+    public Recipe replaceRecipe(@RequestBody Recipe newRecipe,
+                                                @PathVariable Long id){
+        return recipeRepo.findById(id)
+                .map(recipe -> {
+                    recipe.setIngredient(newRecipe.getIngredient());
+                    recipe.setInstruction(newRecipe.getInstruction());
+                    return recipeRepo.save(recipe);
+                })
+                .orElseGet(()->{
+                    newRecipe.setId(id);
+                    return recipeRepo.save(newRecipe);
+                });
+    }
+
+    @DeleteMapping(path="/{id}")
+    void deleteEmployee(@PathVariable Long id){
+        Optional<Recipe> r = recipeRepo.findById(id);
+        System.out.println(r);
+        if(r.isEmpty()){
+            throw new IllegalArgumentException("Error Recipe not found by id.");
+        } else{
+            recipeRepo.deleteById(id);
+        }
+    }
+
+    @DeleteMapping(path="/all")
+    void deleteEmployees(){
+        recipeRepo.deleteAll();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleIllegalArgumentException(
+            IllegalArgumentException exception
+    ){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(exception.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleHttpMessageNotReadableException(
+            HttpMessageNotReadableException httpMessageNotReadableException
+    ){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("Malformed JSON request");
     }
 }
