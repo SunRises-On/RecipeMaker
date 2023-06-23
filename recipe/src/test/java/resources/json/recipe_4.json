@@ -1,0 +1,27 @@
+{
+  "name": "Artichoke Pasta",
+  "instruction": {
+    "instruction_1": "Set a large pot of salted water to boil. Cook pasta until al dente according to package directions.",
+    "instruction_2": "While the pasta is cooking, melt olive oil and butter in a large nonstick pan over medium-high heat. Add onion; sauté for about 3 minutes until soft and translucent. Stir in garlic and cook for 30 seconds until fragrant.",
+    "instruction_3": "Add in the tomatoes (with their juices) and artichokes; gently stir to combine.",
+    "instruction_4": "Add in the salt, pepper, and nutmeg. Let simmer for 5 minutes.",
+    "instruction_5": "Reduce heat to low and add in the cream and broth. Stir in the Parmesan. Warm through. Taste and adjust seasoning, if necessary.",
+    "instruction_6": "Drain the pasta and add to the sauce and mix thoroughly. Sprinkle with parsley, toss, and serve hot."
+  },
+  "ingredient": {
+    "ingredient_1": "1 pound dry spaghetti",
+    "ingredient_2": "1 tablespoon extra-virgin olive oil",
+    "ingredient_3": "1 tablespoon unsalted butter",
+    "ingredient_4": "1 medium sweet onion , diced",
+    "ingredient_5": "4 cloves garlic , minced",
+    "ingredient_6": "15 ounce can Italian seasoned diced tomatoes , undrained",
+    "ingredient_7": "14 ounce can quartered artichoke hearts , drained",
+    "ingredient_8": "1 teaspoon kosher salt",
+    "ingredient_9": "1/4 teaspoon black pepper",
+    "ingredient_10": "1/8 teaspoon nutmeg",
+    "ingredient_11": "1/2 cup heavy cream",
+    "ingredient_12": "1/2 cup low sodium vegetable broth ( or chicken broth)",
+    "ingredient_13": "1/2 cup grated Parmesan cheese",
+    "ingredient_14": "1/3 cup chopped fresh parsley"
+  }
+}

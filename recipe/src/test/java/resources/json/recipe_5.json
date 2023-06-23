@@ -1,0 +1,21 @@
+{
+  "name": "Oklahoma Onion Burgers",
+  "instruction": {
+    "instruction_1": "Slice the onion very thinly, then toss it with a little salt in a bowl and set aside for a few minutes. Divide the meat into four patties.",
+    "instruction_2": "Heat a large frying pan or flat top over medium high heat for a few minutes. When it's hot, add the canola oil. When it's hot, place a patty on the pan and smash it with a spatula or bacon press. Hold for 30 seconds. Sprinkle black pepper on the patty, then cover the patty with onions. It's OK if a few spill onto the hot pan. Cook like this for 2 minutes.",
+    "instruction_3": "Carefully flip the burger. You want to scrape the pan to get everything, in case you have some spots that have stuck. I use my off hand to hold the onions onto the patty as I flip. Once flipped, Press down on the patty to sink the onions into the meat.",
+    "instruction_4": "Add salt and pepper to the patty and lay a slice of cheese onto it. Let this cook for 2 to 4 minutes, depending on how cooked you want your meat. Two minutes will give you a nice medium.",
+    "instruction_5": "To get everything off the pan, place the bun on the cheese and use the spatula to lift the burger off the pan. Set it on the bottom bun. Add pickles and mustard if you want. Optional: Get another pan hot and melt some butter in it to toast the buns before you use them. About 30 seconds should get you a nice toasty brown."
+  },
+  "ingredient": {
+    "ingredient_1": "1 large yellow or white onion, sliced very thin",
+    "ingredient_2": "Salt",
+    "ingredient_3": "1 pound finely ground venison or beef",
+    "ingredient_4": "1 tablespoon canola oil",
+    "ingredient_5": "Black pepper",
+    "ingredient_6": "4 slices cheddar, American or other cheese",
+    "ingredient_7": "Pickles",
+    "ingredient_8": "mustard",
+    "ingredient_9": "burger buns"
+  }
+}

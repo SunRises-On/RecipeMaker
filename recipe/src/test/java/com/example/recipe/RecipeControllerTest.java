@@ -50,14 +50,11 @@ public class RecipeControllerTest {
     public void createRecipe() throws Exception{
         System.out.println("dlkjadslkjads");
 
-        String path  = "src/test/resources/json/recipe_1.json";
+        String path  ="src/test/java/resources/json/recipe_1.json";
         File file = new File(path);
-        String aboslutePath = file.getAbsolutePath();
-
-        String json = readFileAsString(aboslutePath);
-
-    //    InputStream inputStream = getInputStream();
-
+        String absolutePath = file.getAbsolutePath();
+        String json = readFileAsString(absolutePath);
+        System.out.println(json);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/recipe/upload")
@@ -66,7 +63,6 @@ public class RecipeControllerTest {
                         .accept("application/json"))
                 .andDo(MockMvcResultHandlers.print()) //print request and response
                 .andExpect(status().isOk());
-                //.andExpect(MockMvcResultHandlers.model())
         //.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
