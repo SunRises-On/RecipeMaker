@@ -1,18 +1,22 @@
 package com.example.createrecipetin.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 
 @Entity
 @Table(name="instructions")
-public class Instructions {
+public class Instructions implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+
+    @JsonBackReference
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
@@ -650,23 +654,27 @@ public class Instructions {
                 if( (i<2) || ( (i>1) && (fields[i].get(this) != null) ) ){
 
                     fields[i].setAccessible(true);
-                    //get value of the field
-                    String value = (String) fields[i].get(this);
 
                     if(i==0){
-                        ans += fields[i].getName() + " = " + value ;
-                    }else if(i==1){
-                        ans += ", "+ fields[i].getName() + " = " + value ;
-                    }
-                    else{
-                        ans += ", "+ fields[i].getName() + " = " + "\'"+ value + "\'" ;
+                        //get value of the field
+                        ans += fields[i].getName() + " = " + getId() ;
 
                     }
+                }else if(i==1){
+                    String value = (String) fields[i].get(this);
+
+                    ans += ", "+ fields[i].getName() + " = " + value ;
                 }
+                else{
+                    String value = (String) fields[i].get(this);
 
-            } catch (IllegalAccessException e) {
+                    ans += ", "+ fields[i].getName() + " = " + "\'"+ value + "\'" ;
+
+                }
+                } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
+
         }
         ans += "}";
         return ans;

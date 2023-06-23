@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -25,6 +26,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -54,16 +57,30 @@ public class RecipeControllerTest {
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
         String json = readFileAsString(absolutePath);
-        System.out.println(json);
+       // System.out.println(json);
 
-        mockMvc.perform(MockMvcRequestBuilders
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/recipe/upload")
+                        //.header(
                 .content(json)
                         .contentType("application/json")
-                        .accept("application/json"))
-                .andDo(MockMvcResultHandlers.print()) //print request and response
-                .andExpect(status().isOk());
+                        .accept("application/json")
+                        .characterEncoding("utf-8"))
+                .andDo(print()) //print request and response
+                .andExpect(status().isOk())
+                .andReturn();
+        String content = result.getResponse().getContentAsString();
+        System.out.println("----------------------------");
+        System.out.println(content);
         //.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+    }
+
+    @Test
+    public void getRecipe() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/v1/recipe/all")).andDo(print()).andExpect(status().isOk());
+
+       // ).andDo(MockMvcResultHandlers.print());
     }
 
 

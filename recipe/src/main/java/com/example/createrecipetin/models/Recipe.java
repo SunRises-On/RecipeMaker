@@ -1,14 +1,17 @@
 package com.example.createrecipetin.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 
 @EqualsAndHashCode
 
 @Entity
 @Table(name="recipe")
-public class Recipe {
+public class Recipe implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -18,12 +21,15 @@ public class Recipe {
 
     //whoever owns the foreign key column gets the @Join Column
     // annotation
+    @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY,
             cascade=CascadeType.ALL,
             mappedBy="recipe"
     )
     private Instructions instruction;
 
+
+    @JsonManagedReference
     @OneToOne( fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "recipe"
