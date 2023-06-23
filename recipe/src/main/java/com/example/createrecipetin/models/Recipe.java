@@ -1,7 +1,10 @@
 package com.example.createrecipetin.models;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 
+
+@EqualsAndHashCode
 
 @Entity
 @Table(name="recipe")
@@ -26,6 +29,8 @@ public class Recipe {
             mappedBy = "recipe"
     )
     private Ingredients ingredient;
+
+
 
     public Long getId() {
         return id;
@@ -62,10 +67,10 @@ public class Recipe {
     @Override
     public String toString() {
         return "Recipe{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", instruction=" + instruction +
-                ", ingredient=" + ingredient +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", instruction=" + getInstruction() +
+                ", ingredient=" + getIngredient() +
                 '}';
     }
 }
