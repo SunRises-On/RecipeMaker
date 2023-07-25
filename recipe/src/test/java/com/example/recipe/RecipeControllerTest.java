@@ -59,6 +59,7 @@ public class RecipeControllerTest {
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
         String jsonString = readFileAsString(absolutePath);
+        
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/recipe/upload")
                 .content(jsonString)
                 .contentType("application/json")

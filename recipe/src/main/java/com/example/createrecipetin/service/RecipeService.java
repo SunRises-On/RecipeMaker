@@ -52,5 +52,13 @@ public class RecipeService {
         return r;
     }
 
+    public void deleteById(Long id){
+        recipeRepo.deleteById(id);
+    }
+
+    public void deleteAll(){
+        recipeRepo.deleteAll();
+    }
+
 
 }

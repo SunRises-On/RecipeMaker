@@ -79,32 +79,32 @@ public class RecipeController {
     @PutMapping(path="/{id}")
     public Recipe replaceRecipe(@RequestBody Recipe newRecipe,
                                                 @PathVariable Long id){
-        return recipeRepo.findById(id)
+        return recipeService.getById(id)
                 .map(recipe -> {
                     recipe.setIngredient(newRecipe.getIngredient());
                     recipe.setInstruction(newRecipe.getInstruction());
-                    return recipeRepo.save(recipe);
+                    return recipeService.save(recipe);
                 })
                 .orElseGet(()->{
                     newRecipe.setId(id);
-                    return recipeRepo.save(newRecipe);
+                    return recipeService.save(newRecipe);
                 });
     }
 
     @DeleteMapping(path="/{id}")
     void deleteEmployee(@PathVariable Long id){
-        Optional<Recipe> r = recipeRepo.findById(id);
-        System.out.println(r);
-        if(r.isEmpty()){
+        Optional<Recipe> recipe = recipeService.getById(id);
+        System.out.println(recipe);
+        if(recipe.isEmpty()){
             throw new IllegalArgumentException("Error Recipe not found by id.");
         } else{
-            recipeRepo.deleteById(id);
+            recipeService.deleteById(id);
         }
     }
 
     @DeleteMapping(path="/all")
     void deleteEmployees(){
-        recipeRepo.deleteAll();
+        recipeService.deleteAll();
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
