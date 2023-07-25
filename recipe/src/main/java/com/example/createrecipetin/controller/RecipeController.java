@@ -29,12 +29,7 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
-    @Autowired
-    private RecipeRepo recipeRepo;
-    @Autowired
-    private InstructionsRepo instructionsRepo;
-    @Autowired
-    private IngredientsRepo ingredientsRepo;
+
 
 
     @PostMapping(value="/upload",
@@ -58,19 +53,10 @@ public class RecipeController {
     @GetMapping(path ="/all")
     public ResponseEntity <List<Recipe>> getAllRecipes(){
         System.out.println("----------------------------------------");
-        List<Recipe> r = recipeRepo.findAll();
+        List<Recipe> r = recipeService.findAll();
         r.forEach( re -> {
             System.out.println(re);
         });
-        //This returns a JSOn with the users
-    //    List<Recipe> r= recipeRepo.findAll();
-     //   for(Recipe recipe: r){
-     //       Long id = recipe.getId();
-     //       int i = id.intValue();
-     //       System.out.println( i);
-     //       Ingredients ing = ingredientsRepo.getByRecipeId(recipe.getId());
-      //      System.out.println(recipe);
-      //  }
         return new ResponseEntity(r, HttpStatus.OK);
     }
 
@@ -79,7 +65,7 @@ public class RecipeController {
         System.out.println("id = " + id);
         //findById is eager loaded so it will immediately populate the entity
         //getReferenceById was crashing the program when I tried to convert it to ResponseEntity
-        Optional<Recipe> r = recipeRepo.findById(id);
+        Optional<Recipe> r = recipeService.getById(id);//recipeRepo.findById(id);
         System.out.println(r);
         if(r.isEmpty()){
 

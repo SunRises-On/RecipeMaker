@@ -42,5 +42,15 @@ public class RecipeService {
         return newRecipe;
     }
 
+    public List<Recipe> findAll(){
+        List<Recipe> recipeList= recipeRepo.findAll();
+        return  recipeList;
+    }
+
+    public Optional<Recipe> getById(Long id){
+        Optional<Recipe> r = recipeRepo.findById(id);//recipeRepo.findById(id);
+        return r;
+    }
+
 
 }

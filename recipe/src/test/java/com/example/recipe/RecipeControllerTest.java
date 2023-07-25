@@ -15,6 +15,7 @@ import org.mockito.Answers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
+import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,7 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {RecipeController.class, RecipeService.class, RecipeRepo.class, InstructionsRepo.class, IngredientsRepo.class})
-@WebMvcTest(value = RecipeController.class)
+//@WebMvcTest(value = RecipeController.class)
+//By setting controllers parameter we're telling Spring Boot to restrict the application context created for this test to the given controller bean and some framework beans needed for Spring Web MVC. All other beans we might need to be included separately or mocked away with @MockBean
+@WebMvcTest(controllers = RecipeController.class)
 public class RecipeControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -51,32 +55,21 @@ public class RecipeControllerTest {
     //use MockMvc bean instance to invoke APIs
     @Test
     public void createRecipe() throws Exception{
-        System.out.println("dlkjadslkjads");
-
         String path  ="src/test/java/resources/json/recipe_1.json";
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
-        String json = readFileAsString(absolutePath);
-       // System.out.println(json);
+        String jsonString = readFileAsString(absolutePath);
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/recipe/upload")
+                .content(jsonString)
+                .contentType("application/json")
+                .accept("application/json"))
+                .andDo(print())
+                        .andExpect(status().isOk());
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1/recipe/upload")
-                        //.header(
-                .content(json)
-                        .contentType("application/json")
-                        .accept("application/json")
-                        .characterEncoding("utf-8"))
-                .andDo(print()) //print request and response
-                .andExpect(status().isOk())
-                .andReturn();
-        String content = result.getResponse().getContentAsString();
-        System.out.println("----------------------------");
-        System.out.println(content);
-        //.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
     @Test
-    public void getRecipe() throws Exception{
+    public void getAllRecipes() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/v1/recipe/all")).andDo(print()).andExpect(status().isOk());
 
