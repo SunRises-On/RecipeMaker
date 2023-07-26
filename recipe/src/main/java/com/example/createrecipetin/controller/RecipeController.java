@@ -40,7 +40,7 @@ public class RecipeController {
     //returned is automatically serialized into JSON and passed
     // back into the HttpResponse object
     //@ResponseBody
-    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe newRecipe) throws ServerException {
+    public @ResponseBody ResponseEntity<Recipe> createRecipe(@RequestBody Recipe newRecipe) throws ServerException {
 
         Recipe recipe = recipeService.save(newRecipe);
         if(recipe == null){
@@ -51,7 +51,7 @@ public class RecipeController {
     }
 
     @GetMapping(path ="/all")
-    public ResponseEntity <List<Recipe>> getAllRecipes(){
+    public @ResponseBody ResponseEntity <List<Recipe>> getAllRecipes(){
         System.out.println("----------------------------------------");
         List<Recipe> r = recipeService.findAll();
         r.forEach( re -> {

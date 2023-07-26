@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 
 import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -54,25 +55,42 @@ public class RecipeControllerTest {
     private IngredientsRepo ingredientsRepo;
     //use MockMvc bean instance to invoke APIs
     @Test
-    public void createRecipe() throws Exception{
-        String path  ="src/test/java/resources/json/recipe_1.json";
+    // Nothing will be returned if the Method in Controller does not have a @ResponseBody !!
+    public void createRecipe() throws Exception {
+        String path = "src/test/java/resources/json/recipe_1.json";
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
         String jsonString = readFileAsString(absolutePath);
-        
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/recipe/upload")
-                .content(jsonString)
-                .contentType("application/json")
-                .accept("application/json"))
-                .andDo(print())
-                        .andExpect(status().isOk());
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
+                  .andDo(print())
+                .andExpect(status().isOk());
 
     }
 
+
     @Test
     public void getAllRecipes() throws Exception{
+      //  mockMvc.perform(
+      //                  MockMvcRequestBuilders
+       //                         .get("/api/v1/recipe/all")
+       //                         .accept("application/json")
+       //         )
+                // .andDo(print())
+      //          .andExpect(status().isOk())
+       //         .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+        //.andDo(MockMvcResultHandlers.print());
+        //.andExpect(jsonPath("$.id").hasJsonPath())
+        //  .andReturn();
+        createRecipe();
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/api/v1/recipe/all")).andDo(print()).andExpect(status().isOk());
+                .get("/api/v1/recipe/all")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
 
        // ).andDo(MockMvcResultHandlers.print());
     }
