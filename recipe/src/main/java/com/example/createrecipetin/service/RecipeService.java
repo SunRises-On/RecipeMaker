@@ -47,6 +47,16 @@ public class RecipeService {
         return  recipeList;
     }
 
+    public Optional<Recipe> update(Recipe newRecipe, Long id){
+        Optional<Recipe> recipe = getById(id)
+                .map(recipe1 -> {
+                    recipe1.setIngredient(newRecipe.getIngredient());
+                    recipe1.setInstruction(newRecipe.getInstruction());
+                    return save(recipe1);
+                });
+        return recipe;
+    }
+
     public Optional<Recipe> getById(Long id){
         Optional<Recipe> r = recipeRepo.findById(id);//recipeRepo.findById(id);
         return r;

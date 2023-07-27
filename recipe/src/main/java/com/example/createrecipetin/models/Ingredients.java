@@ -3,10 +3,11 @@ package com.example.createrecipetin.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-
+//@EqualsAndHashCode
 @Entity
 @Table(name="ingredients")
 public class Ingredients implements Serializable {

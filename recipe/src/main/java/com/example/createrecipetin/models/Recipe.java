@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 
 @EqualsAndHashCode
-
 @Entity
 @Table(name="recipe")
 public class Recipe implements Serializable {

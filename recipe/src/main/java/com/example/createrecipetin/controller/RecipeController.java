@@ -31,7 +31,6 @@ public class RecipeController {
     RecipeService recipeService;
 
 
-
     @PostMapping(value="/upload",
         consumes= "application/json",
         produces= "application/json"
@@ -39,33 +38,48 @@ public class RecipeController {
     //@ResponseBody annotation tells a controller that the object
     //returned is automatically serialized into JSON and passed
     // back into the HttpResponse object
-    //@ResponseBody
-    public @ResponseBody ResponseEntity<Recipe> createRecipe(@RequestBody Recipe newRecipe) throws ServerException {
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe newRecipe) throws ServerException {
 
         Recipe recipe = recipeService.save(newRecipe);
+        System.out.println(recipe);
         if(recipe == null){
             throw new ServerException("Error creating new recipe.");
         } else{
-            return new ResponseEntity(recipe, HttpStatus.CREATED);
+            ResponseEntity response= ResponseEntity.status(HttpStatus.CREATED).body(recipe);
+
+            return response;
         }
     }
 
-    @GetMapping(path ="/all")
-    public @ResponseBody ResponseEntity <List<Recipe>> getAllRecipes(){
+    @GetMapping(value ="/all",
+            produces = "application/json"
+    )
+    //produces condition ensures that the actual content type used to
+    //generate the response respsects the media types specified
+    //in the produces condition
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Recipe>> getAllRecipes(){
         System.out.println("----------------------------------------");
-        List<Recipe> r = recipeService.findAll();
-        r.forEach( re -> {
+        List<Recipe> recipeList = recipeService.findAll();
+        recipeList.forEach( re -> {
             System.out.println(re);
         });
-        return new ResponseEntity(r, HttpStatus.OK);
+        ResponseEntity response= ResponseEntity.status(HttpStatus.OK).body(recipeList);
+
+        return response;
     }
 
     @GetMapping (path ="/{id}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Recipe> getRecipe(@PathVariable Long id){
         System.out.println("id = " + id);
         //findById is eager loaded so it will immediately populate the entity
         //getReferenceById was crashing the program when I tried to convert it to ResponseEntity
-        Optional<Recipe> r = recipeService.getById(id);//recipeRepo.findById(id);
+        Optional<Recipe> r = recipeService.getById(id);
         System.out.println(r);
         if(r.isEmpty()){
 
@@ -77,22 +91,26 @@ public class RecipeController {
     }
 
     @PutMapping(path="/{id}")
-    public Recipe replaceRecipe(@RequestBody Recipe newRecipe,
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public  ResponseEntity<Recipe> replaceRecipe(@RequestBody Recipe newRecipe,
                                                 @PathVariable Long id){
-        return recipeService.getById(id)
-                .map(recipe -> {
-                    recipe.setIngredient(newRecipe.getIngredient());
-                    recipe.setInstruction(newRecipe.getInstruction());
-                    return recipeService.save(recipe);
-                })
-                .orElseGet(()->{
-                    newRecipe.setId(id);
-                    return recipeService.save(newRecipe);
-                });
+        //If empty create new object with HTTP code 201 (created)
+        if(recipeService.getById(id).isEmpty()){
+            Recipe recipe = recipeService.save(newRecipe);
+            ResponseEntity response= ResponseEntity.status(HttpStatus.CREATED).body(recipe);
+            return response;
+            //Update recipe return HTTP code 200 (ok)
+        }else{
+            Optional<Recipe> recipe = recipeService.update(newRecipe, id);
+            ResponseEntity response = ResponseEntity.status(HttpStatus.OK).body(recipe);
+            return response;
+        }
     }
 
     @DeleteMapping(path="/{id}")
     void deleteEmployee(@PathVariable Long id){
+        //Optional returns empty if null
         Optional<Recipe> recipe = recipeService.getById(id);
         System.out.println(recipe);
         if(recipe.isEmpty()){
@@ -106,6 +124,11 @@ public class RecipeController {
     void deleteEmployees(){
         recipeService.deleteAll();
     }
+
+    /***
+     * Exceptional Handling
+     */
+
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
