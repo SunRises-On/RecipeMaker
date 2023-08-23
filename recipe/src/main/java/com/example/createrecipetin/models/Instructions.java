@@ -652,26 +652,23 @@ public class Instructions implements Serializable {
         for(int i=0; i< fields.length; i++){
 
             try {
-                if( (i<2) || ( (i>1) && (fields[i].get(this) != null) ) ){
+                fields[i].setAccessible(true);
 
-                    fields[i].setAccessible(true);
-
-                    if(i==0){
-                        //get value of the field
-                        ans += fields[i].getName() + " = " + getId() ;
-
-                    }
-                }else if(i==1){
-                    String value = (String) fields[i].get(this);
-
-                    ans += ", "+ fields[i].getName() + " = " + value ;
+                if(i==0){
+                    //get value of the field
+                    ans += fields[i].getName() + " = " + getId() ;
+                }
+                else if(i==1){
+                    //We could get the Recipe object, but it's faster to get recipe_id.
+                    Long recipe_id = this.getRecipe().getId();
+                    ans += ", Recipe_id =  "+ recipe_id;
                 }
                 else{
-                    String value = (String) fields[i].get(this);
 
-                    ans += ", "+ fields[i].getName() + " = " + "\'"+ value + "\'" ;
-
-                }
+                    if((String) fields[i].get(this) != null){
+                        String value = (String) fields[i].get(this);
+                        ans += ", "+ fields[i].getName() + " = " + "\'"+ value + "\'" ;
+                    }}
                 } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

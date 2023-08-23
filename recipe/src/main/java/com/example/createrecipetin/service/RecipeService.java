@@ -1,6 +1,5 @@
 package com.example.createrecipetin.service;
 
-
 import com.example.createrecipetin.models.Ingredients;
 import com.example.createrecipetin.models.Instructions;
 import com.example.createrecipetin.models.Recipe;
@@ -28,18 +27,21 @@ public class RecipeService {
     @Autowired
     private IngredientsRepo ingredientsRepo;
 
+    /** Services **/
+    @Autowired
+    private IngredientService ingredientService;
+    @Autowired
+    private InstructionService instructionService;
+
+
     //ResponseEntity represents the whole http response;
     // status code, headers, and body
     public Recipe save(Recipe recipe){
-        //recipeRepo.save(recipe);
-        Recipe newRecipe = recipeRepo.save(recipe);
+        recipeRepo.save(recipe);
 
-        Long recipe_id = newRecipe.getId();
-        Ingredients ingredients = newRecipe.getIngredient();
-        ingredients.setRecipe(newRecipe);
-        Instructions instructions = newRecipe.getInstruction();
-        instructions.setRecipe(newRecipe);
-        return newRecipe;
+        Ingredients ingredients = ingredientService.saveRecipe(recipe);
+        Instructions instructions = instructionService.saveRecipe(recipe);
+        return recipe;
     }
 
     public List<Recipe> findAll(){
@@ -69,6 +71,7 @@ public class RecipeService {
     public void deleteAll(){
         recipeRepo.deleteAll();
     }
+
 
 
 }
