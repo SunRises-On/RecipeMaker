@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -100,21 +102,122 @@ class RecipeServiceTest {
      * It sets the Recipe Record in the Instruction Obj.
      */
 
-    @DisplayName("Save(), Test that Ingredient Obj has a Recipe Obj attribute.")
+    @DisplayName("Save(), Test that Ingredients Obj has a Recipe Obj attribute.")
     @Test
-    void save_IngredientRepoSaveMethodCalledWithSpecificArgument() throws Exception {
+    void save_checkIngredientObjHasAttributeRecipe() throws Exception {
         String jsonString = returnJsonString();
         Recipe recipe = jsonStringToRecipe(jsonString);
         System.out.println(recipe);
-        //   ingredients.setRecipe(recipe);
-        //    System.out.println(ingredients.getIngredient_1());
 
-        //we are testing the recipeService method
+        Mockito.when(recipeRepo.save(ArgumentMatchers.any()))
+                .thenReturn(recipe);
+
         recipeService.save(recipe);
+
         Ingredients ingredients = recipe.getIngredient();
         System.out.println(ingredients);
+
         assertThat(ingredients.getRecipe()).isNotNull();
         assertThat(ingredients.getRecipe()).isEqualTo(recipe);
+    }
+    @DisplayName("Save(), Test that Instructions Obj has a Recipe Obj attribute.")
+    @Test
+    void save_checkInstructionsObjHasAttributeRecipe() throws Exception{
+        String jsonString = returnJsonString();
+        Recipe recipe = jsonStringToRecipe(jsonString);
+        System.out.println(recipe);
+
+        Mockito.when(recipeRepo.save(ArgumentMatchers.any()))
+                .thenReturn(recipe);
+
+        recipeService.save(recipe);
+
+        Instructions instructions = recipe.getInstruction();
+        System.out.println(instructions);
+
+        assertThat(instructions.getRecipe()).isNotNull();
+        assertThat(instructions.getRecipe()).isEqualTo(recipe);
+    }
+
+    //public List<Recipe> findAll(){
+    //    List<Recipe> recipeList= recipeRepo.findAll();
+    //    return  recipeList;
+    //}
+    @DisplayName("FindAll(), test that Recipe Repository findAll() works.")
+    @Test
+    void findAll_testFindAllWithOneRecipeObj() throws Exception{
+        String jsonString = returnJsonString();
+        Recipe recipe = jsonStringToRecipe(jsonString);
+        List<Recipe> list = new ArrayList<>();
+
+        list.add(recipe);
+
+        Mockito.when(recipeRepo.findAll()).thenReturn(list);
+
+        List<Recipe> recipeList = recipeService.findAll();
+
+        assertThat(recipeList).hasSize(1);
+
+        System.out.println("Recipe List: ");
+        System.out.println(recipeList.toString());
+    }
+    @DisplayName("FindAll(), test that Recipe Repository findAll() will return empty if no records are in the Repository.")
+    @Test
+    void findAll_testForNoEntries() throws Exception{
+        List<Recipe> list = new ArrayList<>();
+
+        Mockito.when(recipeRepo.findAll()).thenReturn(list);
+
+        List<Recipe> recipeList = recipeService.findAll();
+        assertThat(recipeList).isEmpty();
+    }
+
+
+    @DisplayName("Update(), test that Recipe object will update.")
+    @Test
+    public void update_test()throws Exception{
+        //set up
+        String jsonString = returnJsonString();
+        Recipe recipe = jsonStringToRecipe(jsonString);
+        //stub
+        Mockito.when(recipeRepo.findById(ArgumentMatchers.any())).thenReturn(Optional.ofNullable(recipe));
+        Mockito.when(recipeRepo.save(ArgumentMatchers.any())).thenReturn(recipe);
+        //change obj
+        recipe.setName("Spicy Pad Thai");
+        //call method
+        Optional<Recipe> newRecipe = recipeService.update(recipe, 1L);
+
+        assertThat( newRecipe.get().getName()).isEqualTo("Spicy Pad Thai");
+
+    }
+
+    public Optional<Recipe> getById(Long id){
+        Optional<Recipe> r = recipeRepo.findById(id);//recipeRepo.findById(id);
+        return r;
+    }
+    @DisplayName("GetById(), Test that Recipe object will be returned.")
+    @Test
+    public void getById_testThatObjWillBeReturned() throws Exception {
+        //set up
+        String jsonString = returnJsonString();
+        Recipe recipe = jsonStringToRecipe(jsonString);
+        //stub
+        Mockito.when(recipeRepo.findById(ArgumentMatchers.any())).thenReturn(Optional.ofNullable(recipe));
+        //call method
+        Optional<Recipe> foundRecipe = recipeService.getById(1L);
+        //test
+        assertThat(foundRecipe).isNotEmpty();
+        assertThat(foundRecipe.get().getId()).isEqualTo(1L);
+    }
+    @DisplayName("GetById(), Test that empty Optional Obj will be returned for Recipe Repository with zero entries")
+    @Test
+    public void getById_testThatEmptyOptionalObjectWillBeReturned(){
+        //stub
+        Mockito.when(recipeRepo.findById(ArgumentMatchers.any())).thenReturn(Optional.ofNullable(recipe));
+        //call method
+        Optional<Recipe> foundRecipe = recipeService.getById(1L);
+        //test
+        assertThat(foundRecipe).isEmpty();
     }
 
     public Recipe jsonStringToRecipe(String jsonString) throws Exception {
