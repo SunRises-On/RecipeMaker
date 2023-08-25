@@ -8,11 +8,8 @@ import com.example.createrecipetin.repositories.IngredientsRepo;
 import com.example.createrecipetin.repositories.RecipeRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,8 +61,18 @@ public class RecipeService {
         return r;
     }
 
-    public void deleteById(Long id){
-        recipeRepo.deleteById(id);
+    public Optional<Recipe> deleteById(Long id) throws Exception {
+
+        Optional<Recipe> deleted = getById(id);
+
+        if(deleted == null){
+            throw new Exception("Recipe not found!");
+
+        }else{
+            recipeRepo.delete(deleted.get());
+        }
+
+        return deleted;
     }
 
     public void deleteAll(){

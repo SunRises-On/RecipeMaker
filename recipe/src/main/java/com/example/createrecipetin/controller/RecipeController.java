@@ -109,7 +109,7 @@ public class RecipeController {
     }
 
     @DeleteMapping(path="/{id}")
-    void deleteEmployee(@PathVariable Long id){
+    void deleteEmployee(@PathVariable Long id) throws Exception {
         //Optional returns empty if null
         Optional<Recipe> recipe = recipeService.getById(id);
         System.out.println(recipe);

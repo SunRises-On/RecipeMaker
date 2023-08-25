@@ -32,7 +32,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -85,7 +85,7 @@ class RecipeServiceTest {
 
         recipeService.save(recipe);
 
-        Mockito.verify(recipeRepo, Mockito.times(1))
+        verify(recipeRepo, times(1))
                 .save(recipeArgumentCaptor.capture());
 
         //Test to ensure method was called with a specific argument
@@ -156,6 +156,9 @@ class RecipeServiceTest {
 
         List<Recipe> recipeList = recipeService.findAll();
 
+        verify(recipeRepo, times(1)).findAll();
+        verifyNoMoreInteractions(recipeRepo);
+
         assertThat(recipeList).hasSize(1);
 
         System.out.println("Recipe List: ");
@@ -191,10 +194,6 @@ class RecipeServiceTest {
 
     }
 
-    public Optional<Recipe> getById(Long id){
-        Optional<Recipe> r = recipeRepo.findById(id);//recipeRepo.findById(id);
-        return r;
-    }
     @DisplayName("GetById(), Test that Recipe object will be returned.")
     @Test
     public void getById_testThatObjWillBeReturned() throws Exception {
@@ -206,6 +205,12 @@ class RecipeServiceTest {
         //call method
         Optional<Recipe> foundRecipe = recipeService.getById(1L);
         //test
+
+        //Verify method will pass if .findBId(1L) is called only once on
+        //the mocked object.
+        verify(recipeRepo, times(1)).findById(1L);
+        verifyNoMoreInteractions(recipeRepo);
+
         assertThat(foundRecipe).isNotEmpty();
         assertThat(foundRecipe.get().getId()).isEqualTo(1L);
     }
@@ -217,8 +222,49 @@ class RecipeServiceTest {
         //call method
         Optional<Recipe> foundRecipe = recipeService.getById(1L);
         //test
+        verify(recipeRepo, times(1)).findById(1L);
+        verifyNoMoreInteractions(recipeRepo);
+
         assertThat(foundRecipe).isEmpty();
     }
+    //public void deleteById(Long id){
+    //    recipeRepo.deleteById(id);
+  //  }
+
+    @DisplayName("DeleteById(), Test when Recipe Obj is found and deleted.")
+    @Test
+    public void deleteById_testThatRecipeIsDeleted() throws Exception {
+        //set up
+        String jsonString = returnJsonString();
+        Recipe recipe = jsonStringToRecipe(jsonString);
+
+        when(recipeRepo.findById(1L)).thenReturn(Optional.ofNullable(recipe));
+
+        Recipe r = recipeService.deleteById(1l).get();
+
+        verify(recipeRepo, times(1)).findById(1L);
+        verify(recipeRepo, times(1)).delete(recipe);
+        verifyNoMoreInteractions(recipeRepo);
+
+        assertEquals(recipe, r);
+    }
+
+    @DisplayName("DeleteById(), Test when Recipe Obj is not found.")
+    @Test
+    public void deleteById_testWhenRecipeIsNotFound() throws Exception{
+
+        when(recipeRepo.findById(1L)).thenReturn(null);
+
+        recipeService.deleteById(1L);
+
+        verify(recipeRepo, times(1)).findById(1L);
+        verifyNoMoreInteractions(recipeRepo);
+    }
+
+   // public void deleteAll(){
+   //     recipeRepo.deleteAll();
+    //}
+
 
     public Recipe jsonStringToRecipe(String jsonString) throws Exception {
         Recipe recipe = null;
