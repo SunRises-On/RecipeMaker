@@ -63,6 +63,7 @@ public class RecipeService {
 
     public Optional<Recipe> deleteById(Long id) throws Exception {
 
+
         Optional<Recipe> deleted = getById(id);
 
         if(deleted == null){
@@ -75,8 +76,16 @@ public class RecipeService {
         return deleted;
     }
 
-    public void deleteAll(){
-        recipeRepo.deleteAll();
+    public void deleteAll() throws Exception {
+
+        List<Recipe> list = recipeRepo.findAll();
+
+        if(list.isEmpty()){
+            throw new Exception("Recipe not found!");
+        }
+        recipeRepo.deleteAll(list);
+
+
     }
 
 

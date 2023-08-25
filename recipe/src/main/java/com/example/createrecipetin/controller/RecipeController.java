@@ -121,7 +121,7 @@ public class RecipeController {
     }
 
     @DeleteMapping(path="/all")
-    void deleteEmployees(){
+    void deleteEmployees() throws Exception {
         recipeService.deleteAll();
     }
 

@@ -26,9 +26,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -264,7 +262,36 @@ class RecipeServiceTest {
    // public void deleteAll(){
    //     recipeRepo.deleteAll();
     //}
+    @DisplayName("DeleteAll(), Test deleteAll().")
+    @Test
+    public void deleteAll_test() throws Exception{
+        //set up
+        String jsonString = returnJsonString();
+        Recipe recipe = jsonStringToRecipe(jsonString);
 
+        List<Recipe> list = new ArrayList<Recipe>(Arrays.asList(recipe));
+
+        when(recipeRepo.findAll()).thenReturn(list);
+
+        recipeService.deleteAll();
+
+        verify(recipeRepo, times(1)).findAll();
+        verify(recipeRepo,times(1)).deleteAll(list);
+        verifyNoMoreInteractions(recipeRepo);
+
+    }
+
+    @DisplayName("DeleteAll(), test when there are no Recipe objects in the Repository.")
+    @Test
+    public void deleteAll_testWhenRecipeNotFound() throws Exception {
+        when(recipeRepo.findAll()).thenReturn(new ArrayList<>());
+
+        recipeService.deleteAll();
+
+        verify(recipeRepo, times(1)).findAll();
+        verify(recipeRepo,times(1)).deleteAll(new ArrayList<>());
+        verifyNoMoreInteractions(recipeRepo);
+    }
 
     public Recipe jsonStringToRecipe(String jsonString) throws Exception {
         Recipe recipe = null;
